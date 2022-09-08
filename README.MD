@@ -13,3 +13,21 @@
 - [Настройка Spring MVC](https://java-master.com/spring-mvs-настройка-без-xml-web-xml/)
 - [Инициализация контекста](https://habr.com/ru/post/222579/)
 - [Персистентный слой в Spring и JPA](https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa)
+
+### Реализовано:
+1. CRUD-функционал в UsersController
+2. класс User с полями (id, name и family).
+3. Список всех пользователей на странице /users
+4. Конфигурация Spring через JavaConfig и аннотации. Без использования xml. Без Spring Boot.
+5. Вместо SessionFactory используется EntityManager.
+6. Добавлена поддержка Http-методов PATCH и DELETE с помощью добавления фильтра в AppInit
+
+### Ендпоинты:
+- ***/*** (GET, POST) - приглашение в список пользователей
+- ***/users*** (GET) - (**read**) список пользователей
+- ***/users/new*** (GET) - форма создания пользователя
+- ***/uses/{id}/edit*** {GET} - форма редактирования пользователя
+- ***/users*** (POST) - (**create**) создать пользователя
+- ***/uses/{id}*** {GET} - (**read**) страница информации о пользователе
+- ***/uses/{id}*** {PATCH} - (**update**) сохранение изменений пользователя
+- ***/uses/{id}*** {DELETE} - (**delete**) удаление пользователя

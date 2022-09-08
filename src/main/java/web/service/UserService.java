@@ -13,37 +13,36 @@ public class UserService implements MyService<User> {
     private final MyDao<User> dao;
 
     public UserService(MyDao<User> dao) {
-        System.out.println("ЭКЗЕМПЛЯР СЕРВИСА");
         this.dao = dao;
     }
 
     @Override
-    public void add(User user) {
-        dao.add(user);
+    public void create(User user) {
+        dao.create(user);
     }
 
     @Override
-    public User remove(int id) {
-        return null;
+    public void delete(long id) {
+        dao.delete(id);
     }
 
     @Override
-    public User remove(User user) {
-        return null;
+    public void delete(User user) {
+        dao.delete(user);
     }
 
     @Override
-    public User update(int id, User user) {
-        return null;
+    public void update(long id, User user) {
+        dao.update(id, user);
     }
 
     @Override
-    public User get(int id) {
-        return null;
+    public User show(long id) {
+        return dao.show(id);
     }
 
     @Override
-    public boolean find(User user) {
+    public List<User> find(User user) {
         return dao.find(user);
     }
 

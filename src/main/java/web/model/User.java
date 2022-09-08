@@ -24,6 +24,11 @@ public class User {
         this.family = family;
     }
 
+    public User(User user) {
+        name = user.getName();
+        family = user.getFamily();
+    }
+
     public Long getId() {
         return id;
     }

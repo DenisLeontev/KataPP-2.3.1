@@ -46,8 +46,8 @@ public class AppConfig {
         entityManager.setDataSource(getDataSource());
         entityManager.setPackagesToScan("web");
         Properties properties = new Properties();
-        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put(org.hibernate.cfg.Environment.SHOW_SQL, env.getProperty("hibernate.show_sql"));
+        properties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
         entityManager.setJpaProperties(properties);
         entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return entityManager;
