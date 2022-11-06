@@ -40,7 +40,7 @@
         </thead>
         <tbody>
         <tr th:each="u, it : ${users}">
-            <th th:text="${it.index}+1"></th>
+            <th th:text="${u.id}"></th>
             <td><a th:href="@{/users/{i}(i=${u.id})}" th:text="${u.name} + ' ' + ${u.family}"/></td>
             <td class="no-border">
                 <form th:method="get" th:action="@{/users/{i}/edit(i=${u.id})}">

@@ -37,16 +37,19 @@ public class UserService implements MyService<User> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User show(long id) {
         return dao.show(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> find(User user) {
         return dao.find(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getList() {
         return dao.getList();
     }
