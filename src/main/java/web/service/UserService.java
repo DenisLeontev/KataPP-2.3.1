@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.MyDao;
 import web.model.User;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Service
@@ -52,5 +54,17 @@ public class UserService implements MyService<User> {
     @Transactional(readOnly = true)
     public List<User> getList() {
         return dao.getList();
+    }
+
+
+    // требуется библиотека javax.annotation
+    @PostConstruct
+    private void init() {
+        System.out.println("Получена зависимость: " + dao);
+    }
+
+    @PreDestroy
+    private void destroy() {
+        System.out.println("Уничтожен компонент UserService");
     }
 }
