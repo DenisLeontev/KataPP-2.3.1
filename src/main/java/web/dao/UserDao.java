@@ -1,14 +1,14 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
-import web.model.User;
+import web.model.User1;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class UserDao implements MyDao<User> {
+public class UserDao implements MyDao<User1> {
 
     private final EntityManager entityManager;
 
@@ -17,28 +17,28 @@ public class UserDao implements MyDao<User> {
     }
 
     @Override
-    public void create(User user) {
+    public void create(User1 user) {
         entityManager.joinTransaction();
         entityManager.persist(user);
     }
 
     @Override
-    public User show(long id) {
-        TypedQuery<User> query = entityManager.createQuery("from User where id=:i", User.class);
+    public User1 show(long id) {
+        TypedQuery<User1> query = entityManager.createQuery("from User where id=:i", User1.class);
         query.setParameter("i", id);
         return query.getSingleResult();
     }
 
     @Override
-    public List<User> getList() {
-        TypedQuery<User> query = entityManager.createQuery("from User", User.class);
+    public List<User1> getList() {
+        TypedQuery<User1> query = entityManager.createQuery("from User", User1.class);
         return query.getResultList();
     }
 
     @Override
-    public void update(long id, User user) {
+    public void update(long id, User1 user) {
         entityManager.joinTransaction();
-        User u = show(id);
+        User1 u = show(id);
         u.setName(user.getName());
         u.setFamily(user.getFamily());
         entityManager.persist(u);
@@ -55,14 +55,14 @@ public class UserDao implements MyDao<User> {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(User1 user) {
         entityManager.joinTransaction();
         find(user).forEach(u -> entityManager.remove(u.getId()));
     }
 
     @Override
-    public List<User> find(User user) {
-        TypedQuery<User> query = entityManager.createQuery("from User where name=:n and family=:f", User.class);
+    public List<User1> find(User1 user) {
+        TypedQuery<User1> query = entityManager.createQuery("from User where name=:n and family=:f", User1.class);
         query.setParameter("n", user.getName());
         query.setParameter("f", user.getFamily());
         return query.getResultList();

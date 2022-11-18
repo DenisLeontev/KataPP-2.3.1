@@ -1,6 +1,6 @@
 package web.dao;
 
-import web.model.User;
+import web.model.User1;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface MyDao<T> {
     void update(long id, T t);
     void delete(long id);
     void delete(T t);
-    List<User> find(T t);
+    List<User1> find(T t);
 }

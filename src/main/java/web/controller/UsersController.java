@@ -3,36 +3,53 @@ package web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.model.User;
+import web.model.User1;
 import web.service.MyService;
 
-
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
 public class UsersController {
 
-    private final MyService<User> userService;
 
-    public UsersController(MyService<User> userService) {
+
+    @GetMapping
+    public String show(Model model) {
+        return getUsersView(model);
+    }
+
+    @PostMapping
+    public String show2(Model model) {
+        return getUsersView(model);
+    }
+
+    private String getUsersView(Model model) {
+        model.addAttribute("message", "Список пользователей");
+        model.addAttribute("url", "/users");
+        return "index";
+    }
+
+    private final MyService<User1> userService;
+
+
+    public UsersController(MyService<User1> userService) {
         this.userService = userService;
         addUsers();
     }
-
     //--- CREATE
 
     /***
      * Подготовить объект User для сохранения в базу
      */
-    @GetMapping("/new")
-    public String createForm(@ModelAttribute("user") User user) {
-        return "users/new";
+    @GetMapping("users/new")
+    public String createForm(@ModelAttribute("user") User1 user) {
+        return "new";
     }
-
+// тут
     /***
      * Сохранить в базу
      */
-    @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    @PostMapping ("users")
+    public String create(@ModelAttribute("user") User1 user) {
         // параметры собираются сразу в модель User
         userService.create(user);
         return "redirect:users";
@@ -43,19 +60,19 @@ public class UsersController {
     /***
      * Получить всех пользователей
      */
-    @GetMapping
+    @GetMapping("/users")
     public String index(Model model) {
         model.addAttribute("users", userService.getList());
-        return "users/all";
+        return "all";
     }
 
     /***
      * Получить одного пользователя
      */
-    @GetMapping("/{id}")
+    @GetMapping("users/{id}")
     public String read(Model model, @PathVariable(name = "id") long id) {
         model.addAttribute("user", userService.show(id));
-        return "users/show";
+        return "show";
     }
 
     //--- UPDATE
@@ -63,17 +80,17 @@ public class UsersController {
     /***
      * Подготовить изменения для объекта User
      */
-    @GetMapping("/{id}/edit")
+    @GetMapping("(users/{id}/edit")
     public String editForm(Model model, @PathVariable() long id) {
         model.addAttribute("user", userService.show(id));
-        return "users/edit";
+        return "edit";
     }
 
     /***
      * Сохранить изменённого пользователя
      */
-    @PatchMapping("/{id}")
-    public String edit(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+    @PatchMapping("users/{id}")
+    public String edit(@ModelAttribute("user") User1 user, @PathVariable("id") long id) {
         userService.update(id, user);
         return "redirect:/users";
     }
@@ -83,22 +100,23 @@ public class UsersController {
     /***
      * Удалить пользователя (подготовки объекта User не требуется)
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("users/{id}")
     public String delete(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/users";
     }
-
-    //--- TECHNICAL
-
-    /***
-     * Подготовим список пользователей в базе
-     */
+//
+//    //--- TECHNICAL
+//
+//    /***
+//     * Подготовим список пользователей в базе
+//     */
     private void addUsers() {
-        userService.create(new User("Степан", "Иванов"));
-        userService.create(new User("Иван", "Петров"));
-        userService.create(new User("Света", "Вихрь"));
-        userService.create(new User("Алина", "Хац"));
+        userService.create(new User1("Степан", "Иванов"));
+        userService.create(new User1("Иван", "Петров"));
+        userService.create(new User1("Света", "Вихрь"));
+        userService.create(new User1("Алина", "Хац"));
     }
 
 }
+
